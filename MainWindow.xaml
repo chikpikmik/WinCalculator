@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:WinCalculator"
         mc:Ignorable="d"
         Title="Калькулятор" 
-        Height="450" Width="338" 
+        MinHeight="500" MinWidth="300" 
+        Height="520" Width="320"
         Background="#FF202020" 
         Icon="/img.png" 
         ResizeMode="CanResizeWithGrip" 
@@ -17,138 +18,345 @@
         <WindowChrome GlassFrameThickness="0,0,0,0" 
                       CornerRadius="0"/>
     </WindowChrome.WindowChrome>
-    <Grid 
-        VerticalAlignment="Top"
-        WindowChrome.IsHitTestVisibleInChrome="True">
 
-        <StackPanel Orientation="Horizontal" 
-                    RenderTransformOrigin="0.5,0.5" 
-                    HorizontalAlignment="Left" 
-                    Margin="10,0,0,0">
-            <Image
-		            Width="15"
-		            Height="14"
-		            Source="/img.png" />
-            <TextBlock
-		            VerticalAlignment="Center"
-		            FontSize="12"
-		            Text="Калькулятор" 
-                    Foreground="White" Margin="10,0,0,0"
-                    />
-        </StackPanel>
-        <StackPanel 
-            Orientation="Horizontal" 
-            HorizontalAlignment="Right" 
-            RenderTransformOrigin="0.5,0.5">
-            <StackPanel.RenderTransform>
+    <Grid>
+        <Grid 
+            Name="WinPanel"
+            VerticalAlignment="Top"
+            WindowChrome.IsHitTestVisibleInChrome="True" 
+            Grid.ColumnSpan="4" 
+            Height="30">
+
+            <StackPanel Orientation="Horizontal" 
+                 RenderTransformOrigin="0.5,0.5" 
+                 HorizontalAlignment="Left" 
+                 Margin="10,0,0,0">
+                <Image
+                   Width="15"
+                   Height="14"
+                   Source="/img.png" />
+                <TextBlock
+                   VerticalAlignment="Center"
+                   FontSize="12"
+                   Text="Калькулятор" 
+                 Foreground="White" Margin="10,0,0,0"
+                 />
+            </StackPanel>
+            <StackPanel 
+                 Orientation="Horizontal" 
+                 HorizontalAlignment="Right" 
+                 RenderTransformOrigin="0.5,0.5">
+                <StackPanel.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </StackPanel.RenderTransform>
+
+                <Button 
+                    Click="Minimize_Click" 
+                    Content="&#xE949;"
+                    FontFamily="Segoe MDL2 Assets" 
+                    FontSize="10" 
+                    Padding="15,15,15,5" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Foreground="White">
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type Button}">
+                                        <Border x:Name="Border" 
+                                         Background="{TemplateBinding Background}">
+                                            <ContentPresenter 
+                                         HorizontalAlignment="Center" 
+                                         VerticalAlignment="Center" 
+                                         Margin="15,15,15,5"/>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" 
+                                                 Value="#FF3C3C3C" 
+                                                 TargetName="Border" />
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </Button.Style>
+                </Button>
+                <Button 
+                    Click="Maximize_Click" 
+                    FontFamily="Segoe MDL2 Assets" 
+                    FontSize="10" 
+                    Padding="15,10" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Foreground="White" 
+                    FlowDirection="RightToLeft">
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="Content" Value="&#xE739;" />
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type Button}">
+                                        <Border x:Name="Border" Background="{TemplateBinding Background}">
+                                            <ContentPresenter HorizontalAlignment="Center" 
+                                           VerticalAlignment="Center" 
+                                           Margin="15,10"/>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#FF3C3C3C" TargetName="Border" />
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding WindowState, RelativeSource={RelativeSource AncestorType={x:Type Window}, Mode=FindAncestor}}" Value="Maximized">
+                                    <Setter Property="Content" Value="&#xE923;" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+                <Button 
+                    Click="Close_Click" 
+                    Content="&#xE106;" 
+                    FontFamily="Segoe MDL2 Assets" 
+                    FontSize="10" 
+                    Padding="15,10" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Foreground="White">
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type Button}">
+                                        <Border x:Name="Border" 
+                             Background="{TemplateBinding Background}">
+                                            <ContentPresenter 
+                             HorizontalAlignment="Center" 
+                             VerticalAlignment="Center" 
+                             Margin="15,10"/>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" 
+                                     Value="Red" 
+                                     TargetName="Border" />
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </Button.Style>
+                </Button>
+            </StackPanel>
+
+        </Grid>
+
+        <Grid
+            Margin="0,30,0,0">
+
+            <Frame 
+                Name="MainFrame"
+                NavigationUIVisibility="Hidden"/>
+
+        </Grid>
+
+        <Grid
+          Name="Menu" 
+          Margin="0,30,0,0" 
+          Visibility="Hidden" 
+          Grid.RowSpan="10" 
+          Grid.ColumnSpan="4" 
+          HorizontalAlignment="Left" 
+          Width="256" Background="#FF2D2D2D"
+          >
+
+            <StackPanel Margin="0,29,0,0">
+                <TextBlock 
+                  Text="Калькулятор" 
+                  Foreground="#FFADADAD"
+                  Height="33"
+                  FontWeight="Bold" 
+                  FontSize="16" 
+                  FontFamily="Nirmala UI" 
+                  Margin="10,10,0,0" 
+                  HorizontalAlignment="Left"/>
+
+                <Button
+                    Click="Calculator_click"
+                    Height="30" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Foreground="White" 
+                    Width="193" 
+                    HorizontalAlignment="Left">
+                    <StackPanel
+                        Orientation="Horizontal" 
+                        Width="182" 
+                        Margin="15,0,0,0">
+                        <Path
+                            Height="19" 
+                            Stretch="Fill" 
+                            Width="15"
+                            RenderTransformOrigin="0.492,0.45" 
+                            Margin="0,0,0,0" 
+                            Data="M64 0C28.7 0 0 28.7 0 64V448c0 35.3 28.7 64 64 64H320c35.3 0 64-28.7 64-64V64c0-35.3-28.7-64-64-64H64zM96 64H288c17.7 0 32 14.3 32 32v32c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V96c0-17.7 14.3-32 32-32zm32 160a32 32 0 1 1 -64 0 32 32 0 1 1 64 0zM96 352a32 32 0 1 1 0-64 32 32 0 1 1 0 64zM64 416c0-17.7 14.3-32 32-32h96c17.7 0 32 14.3 32 32s-14.3 32-32 32H96c-17.7 0-32-14.3-32-32zM192 256a32 32 0 1 1 0-64 32 32 0 1 1 0 64zm32 64a32 32 0 1 1 -64 0 32 32 0 1 1 64 0zm64-64a32 32 0 1 1 0-64 32 32 0 1 1 0 64zm32 64a32 32 0 1 1 -64 0 32 32 0 1 1 64 0zM288 448a32 32 0 1 1 0-64 32 32 0 1 1 0 64z" 
+                            Fill="White" 
+                            HorizontalAlignment="Left"
+                            />
+                        <TextBlock 
+                            Text="Обычный"
+                            Height="19"
+                            FontWeight="Bold" 
+                            FontSize="16" 
+                            FontFamily="Nirmala UI" 
+                            RenderTransformOrigin="0.5,0.5" 
+                            Margin="10,0,0,0" 
+                            />
+                    </StackPanel>
+                </Button>
+
+
+                <TextBlock 
+                    Text="Преобразователь" 
+                    Foreground="#FFADADAD"
+                    Height="33"
+                    FontWeight="Bold" 
+                    FontSize="16" 
+                    FontFamily="Nirmala UI" 
+                    Margin="10,10,0,0" 
+                    HorizontalAlignment="Left"/>
+
+                <Button 
+                    Click="Length_click"
+                    Height="29" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Foreground="White" Width="186" HorizontalAlignment="Left" VerticalAlignment="Center">
+                    <StackPanel
+                        Orientation="Horizontal" 
+                        Width="166" 
+                        Margin="10,0,0,0">
+
+                        <Path
+                            Height="15" 
+                            Stretch="Fill" 
+                            Width="21"
+                            RenderTransformOrigin="0.492,0.45" 
+                            Margin="0,0,0,0" 
+                            Data="M635.7 167.2L556.1 31.7c-8.8-15-28.3-20.1-43.5-11.5l-69 39.1L503.3 161c2.2 3.8.9 8.5-2.9 10.7l-13.8 7.8c-3.8 2.2-8.7.9-10.9-2.9L416 75l-55.2 31.3 27.9 47.4c2.2 3.8.9 8.5-2.9 10.7l-13.8 7.8c-3.8 2.2-8.7.9-10.9-2.9L333.2 122 278 153.3 337.8 255c2.2 3.7.9 8.5-2.9 10.7l-13.8 7.8c-3.8 2.2-8.7.9-10.9-2.9l-59.7-101.7-55.2 31.3 27.9 47.4c2.2 3.8.9 8.5-2.9 10.7l-13.8 7.8c-3.8 2.2-8.7.9-10.9-2.9l-27.9-47.5-55.2 31.3 59.7 101.7c2.2 3.7.9 8.5-2.9 10.7l-13.8 7.8c-3.8 2.2-8.7.9-10.9-2.9L84.9 262.9l-69 39.1C.7 310.7-4.6 329.8 4.2 344.8l79.6 135.6c8.8 15 28.3 20.1 43.5 11.5L624.1 210c15.2-8.6 20.4-27.8 11.6-42.8z"
+                            Fill="White"
+                            >
+                            <Path.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform/>
+                                    <RotateTransform Angle="-35.35"/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </Path.RenderTransform>
+                        </Path>
+                        <TextBlock 
+                            Text="Длинна"
+                            Height="19"
+                            FontWeight="Bold" 
+                            FontSize="16" 
+                            FontFamily="Nirmala UI" 
+                            RenderTransformOrigin="0.5,0.5" 
+                            Width="87" Margin="10,0,0,0" 
+                            />
+                    </StackPanel>
+                </Button>
+
+                <Button 
+                    Click="Weight_click"
+                    Height="29" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Foreground="White" 
+                    Width="186" 
+                    HorizontalAlignment="Left">
+
+                    <StackPanel
+                        Orientation="Horizontal" 
+                        Width="166" 
+                        Margin="10,0,0,0">
+                        <Path
+                            Height="15" 
+                            Stretch="Fill" 
+                            Width="15"
+                            RenderTransformOrigin="0.492,0.45" 
+                            Margin="0,0,0,0" 
+                            Data="M510.28 445.86l-73.03-292.13c-3.8-15.19-16.44-25.72-30.87-25.72h-60.25c3.57-10.05 5.88-20.72 5.88-32 0-53.02-42.98-96-96-96s-96 42.98-96 96c0 11.28 2.3 21.95 5.88 32h-60.25c-14.43 0-27.08 10.54-30.87 25.72L1.72 445.86C-6.61 479.17 16.38 512 48.03 512h415.95c31.64 0 54.63-32.83 46.3-66.14zM256 128c-17.64 0-32-14.36-32-32s14.36-32 32-32 32 14.36 32 32-14.36 32-32 32z"
+                            Fill="White"
+                            >
+                            <Path.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform/>
+                                    <RotateTransform/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </Path.RenderTransform>
+                        </Path>
+                        <TextBlock 
+                           Text="Вес и масса"
+                           Height="19"
+                           FontWeight="Bold" 
+                           FontSize="16" 
+                           FontFamily="Nirmala UI" 
+                           RenderTransformOrigin="0.5,0.5" 
+                           Width="101" Margin="15,0,0,0" 
+                           />
+                    </StackPanel>
+                </Button>
+
+            </StackPanel>
+
+        </Grid>
+
+        <Button 
+            Click="Menu_button_Click"
+            FontFamily="Segoe MDL2 Assets" 
+            FontSize="10" 
+            BorderBrush="Transparent"
+            Background="Transparent"
+            Margin="10,35,0,0" 
+            BorderThickness="1,1,1,1" 
+            RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" Width="34" Height="31" VerticalAlignment="Top">
+            <Button.RenderTransform>
                 <TransformGroup>
-                    <ScaleTransform/>
+                    <ScaleTransform ScaleX="-1"/>
                     <SkewTransform/>
                     <RotateTransform/>
                     <TranslateTransform/>
                 </TransformGroup>
-            </StackPanel.RenderTransform>
+            </Button.RenderTransform>
+            <Path
+                Height="10" 
+                Stretch="Fill" 
+                Width="16"
+                Data="M22.373,76.068h205.832c12.356,0,22.374-10.017,22.374-22.373
+                c0-12.356-10.017-22.373-22.374-22.373H22.373C10.017,31.323,0,41.339,0,53.696C0,66.052,10.017,76.068,22.373,76.068z
+                 M228.205,102.916H22.373C10.017,102.916,0,112.933,0,125.289c0,12.357,10.017,22.373,22.373,22.373h205.832
+                c12.356,0,22.374-10.016,22.374-22.373C250.579,112.933,240.561,102.916,228.205,102.916z M228.205,174.51H22.373
+                C10.017,174.51,0,184.526,0,196.883c0,12.356,10.017,22.373,22.373,22.373h205.832c12.356,0,22.374-10.017,22.374-22.373
+                C250.579,184.526,240.561,174.51,228.205,174.51z" Fill="White" 
+                />
+        </Button>
 
-            <Button Click="Minimize_Click" 
-                Content="&#xE949;"
-                FontFamily="Segoe MDL2 Assets" 
-                FontSize="10" 
-                Padding="15,15,15,5" 
-                Background="Transparent" 
-                BorderBrush="Transparent" 
-                Foreground="White">
-                <Button.Style>
-                    <Style TargetType="{x:Type Button}">
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="{x:Type Button}">
-                                    <Border x:Name="Border" 
-                                            Background="{TemplateBinding Background}">
-                                        <ContentPresenter 
-                                            HorizontalAlignment="Center" 
-                                            VerticalAlignment="Center" 
-                                            Margin="15,15,15,5"/>
-                                    </Border>
-                                    <ControlTemplate.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter Property="Background" 
-                                                    Value="#FF3C3C3C" 
-                                                    TargetName="Border" />
-                                        </Trigger>
-                                    </ControlTemplate.Triggers>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </Button.Style>
-            </Button>
-            <Button Click="Maximize_Click" 
-                FontFamily="Segoe MDL2 Assets" 
-                FontSize="10" 
-                Padding="15,10" 
-                Background="Transparent" 
-                BorderBrush="Transparent" 
-                Foreground="White" FlowDirection="RightToLeft">
-                <Button.Style>
-                    <Style TargetType="{x:Type Button}">
-                        <Setter Property="Content" Value="&#xE739;" />
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="{x:Type Button}">
-                                    <Border x:Name="Border" Background="{TemplateBinding Background}">
-                                        <ContentPresenter HorizontalAlignment="Center" 
-                                              VerticalAlignment="Center" 
-                                              Margin="15,10"/>
-                                    </Border>
-                                    <ControlTemplate.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter Property="Background" Value="#FF3C3C3C" TargetName="Border" />
-                                        </Trigger>
-                                    </ControlTemplate.Triggers>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding WindowState, RelativeSource={RelativeSource AncestorType={x:Type Window}, Mode=FindAncestor}}" Value="Maximized">
-                                <Setter Property="Content" Value="&#xE923;" />
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-            </Button>
-            <Button Click="Close_Click" 
-                Content="&#xE106;" 
-                FontFamily="Segoe MDL2 Assets" 
-                FontSize="10" 
-                Padding="15,10" 
-                Background="Transparent" 
-                BorderBrush="Transparent" 
-                Foreground="White">
-                <Button.Style>
-                    <Style TargetType="{x:Type Button}">
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="{x:Type Button}">
-                                    <Border x:Name="Border" 
-                                Background="{TemplateBinding Background}">
-                                        <ContentPresenter 
-                                HorizontalAlignment="Center" 
-                                VerticalAlignment="Center" 
-                                Margin="15,10"/>
-                                    </Border>
-                                    <ControlTemplate.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter Property="Background" 
-                                        Value="Red" 
-                                        TargetName="Border" />
-                                        </Trigger>
-                                    </ControlTemplate.Triggers>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </Button.Style>
-            </Button>
-        </StackPanel>
     </Grid>
+
+
 </Window>

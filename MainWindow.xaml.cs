@@ -24,6 +24,7 @@ namespace WinCalculator
         public MainWindow()
         {
             InitializeComponent();
+            MainFrame.Content = new Calculator();
         }
 
         private void Minimize_Click(object sender, RoutedEventArgs e)
@@ -52,6 +53,45 @@ namespace WinCalculator
             DragMove();
         }
 
+        private void AnimationCompleted(object sender, EventArgs e)
+        {
+            Menu.Visibility = Visibility.Hidden;
+        }
+        private void Menu_button_Click(object sender, RoutedEventArgs e)
+        {
+            DoubleAnimation animation = new DoubleAnimation();
+            animation.Duration = new Duration(TimeSpan.FromSeconds(0.15));
+            TranslateTransform trans = new TranslateTransform();
+            Menu.RenderTransform = trans;
 
+            if (Menu.Visibility == Visibility.Visible)
+            {
+                animation.From = 0;
+                animation.To = -256;
+                animation.Completed += AnimationCompleted;
+                trans.BeginAnimation(TranslateTransform.XProperty, animation);
+            }
+            else
+            {
+                animation.From = -256;
+                animation.To = 0;
+                Menu.Visibility = Visibility.Visible;
+                trans.BeginAnimation(TranslateTransform.XProperty, animation);
+            }
+
+        }
+
+        private void Weight_click(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new Weight());
+        }
+        private void Calculator_click(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new Calculator());
+        }
+        private void Length_click(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new Length());
+        }
     }
 }
