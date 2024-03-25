@@ -24,5 +24,25 @@ namespace WinCalculator
         {
             InitializeComponent();
         }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            CommonFunctions.TextBox_TextChanged(sender as TextBox);
+        }
+
+        private void Equals_Click(object sender, RoutedEventArgs e)
+        {
+            double ComputedExpression = CommonFunctions.ComputeExpression(Calculator_TextBox.Text);
+            if (double.IsInfinity(ComputedExpression))
+            {
+                Calculator_TextBox.Text = "∞";
+            }
+            else if (!ComputedExpression.Equals(double.NaN))
+            {
+                Calculator_TextBox.Text = ComputedExpression.ToString();
+            }
+ 
+        }
+
     }
 }

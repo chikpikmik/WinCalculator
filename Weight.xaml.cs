@@ -24,5 +24,10 @@ namespace WinCalculator
         {
             InitializeComponent();
         }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            CommonFunctions.TextBox_TextChanged(sender as TextBox);
+        }
     }
 }

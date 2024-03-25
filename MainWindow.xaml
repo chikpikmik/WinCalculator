@@ -13,7 +13,8 @@
         ResizeMode="CanResizeWithGrip" 
         WindowStyle="None" 
         AllowsTransparency="True"
-        Opacity="0.95">
+        Opacity="0.95"
+        >
     <WindowChrome.WindowChrome>
         <WindowChrome GlassFrameThickness="0,0,0,0" 
                       CornerRadius="0"/>
@@ -172,6 +173,7 @@
 
         </Grid>
 
+        
         <Grid
           Name="Menu" 
           Margin="0,30,0,0" 
@@ -182,7 +184,8 @@
           Width="256" Background="#FF2D2D2D"
           >
 
-            <StackPanel Margin="0,29,0,0">
+            <StackPanel 
+                Margin="0,29,0,0">
                 <TextBlock 
                   Text="Калькулятор" 
                   Foreground="#FFADADAD"
@@ -326,6 +329,7 @@
 
         </Grid>
 
+    
         <Button 
             Click="Menu_button_Click"
             FontFamily="Segoe MDL2 Assets" 
@@ -357,6 +361,5 @@
         </Button>
 
     </Grid>
-
 
 </Window>

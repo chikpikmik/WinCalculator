@@ -27,6 +27,7 @@ namespace WinCalculator
             MainFrame.Content = new Calculator();
         }
 
+
         private void Minimize_Click(object sender, RoutedEventArgs e)
         {
             Window.GetWindow(this).WindowState = WindowState.Minimized;
@@ -48,35 +49,44 @@ namespace WinCalculator
         {
             Window.GetWindow(this).Close();
         }
-        private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            DragMove();
-        }
 
         private void AnimationCompleted(object sender, EventArgs e)
         {
             Menu.Visibility = Visibility.Hidden;
         }
-        private void Menu_button_Click(object sender, RoutedEventArgs e)
+        private void OpenMenu() 
         {
             DoubleAnimation animation = new DoubleAnimation();
             animation.Duration = new Duration(TimeSpan.FromSeconds(0.15));
             TranslateTransform trans = new TranslateTransform();
             Menu.RenderTransform = trans;
+            animation.From = -256;
+            animation.To = 0;
+            Menu.Visibility = Visibility.Visible;
+            trans.BeginAnimation(TranslateTransform.XProperty, animation);
+        }
+        private void CloseMenu() 
+        {
+            DoubleAnimation animation = new DoubleAnimation();
+            animation.Duration = new Duration(TimeSpan.FromSeconds(0.15));
+            TranslateTransform trans = new TranslateTransform();
+            Menu.RenderTransform = trans;
+            animation.From = 0;
+            animation.To = -256;
+            animation.Completed += AnimationCompleted;
+            trans.BeginAnimation(TranslateTransform.XProperty, animation);
+        }
+
+        private void Menu_button_Click(object sender, RoutedEventArgs e)
+        {
 
             if (Menu.Visibility == Visibility.Visible)
             {
-                animation.From = 0;
-                animation.To = -256;
-                animation.Completed += AnimationCompleted;
-                trans.BeginAnimation(TranslateTransform.XProperty, animation);
+                CloseMenu();
             }
             else
             {
-                animation.From = -256;
-                animation.To = 0;
-                Menu.Visibility = Visibility.Visible;
-                trans.BeginAnimation(TranslateTransform.XProperty, animation);
+                OpenMenu();
             }
 
         }
@@ -84,14 +94,19 @@ namespace WinCalculator
         private void Weight_click(object sender, RoutedEventArgs e)
         {
             MainFrame.Navigate(new Weight());
+            CloseMenu();
         }
         private void Calculator_click(object sender, RoutedEventArgs e)
         {
             MainFrame.Navigate(new Calculator());
+            CloseMenu();
         }
         private void Length_click(object sender, RoutedEventArgs e)
         {
             MainFrame.Navigate(new Length());
+            CloseMenu();
         }
+
+        
     }
 }

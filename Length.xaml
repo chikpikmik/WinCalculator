@@ -11,18 +11,19 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="1.3*"/>
-            <RowDefinition Height="1.*"/>
+            <RowDefinition Height="1.2*"/>
             <RowDefinition Height="0.8*"/>
 
             <RowDefinition Height="1.2*"/>
-            <RowDefinition Height="0.5*"/>
-            <RowDefinition Height="1.5*"/>
+            <RowDefinition Height="0.8*"/>
+            <RowDefinition Height="1.3*"/>
 
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
+
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -41,26 +42,64 @@
             FlowDirection="LeftToRight" 
             HorizontalAlignment="Left" FontWeight="Bold"/>
 
-        <TextBlock 
-             Grid.Row="1"
-             Grid.ColumnSpan="4"
-             Text="123123" 
-             Foreground="White" 
-             Height="47" 
-             VerticalAlignment="Bottom" 
-             Margin="20,0,10,0"
-             FontSize="36" 
-             FlowDirection="LeftToRight"/>
-        <TextBlock 
-             Grid.Row="3"
-             Grid.ColumnSpan="4"
-             Text="456456" 
-             Foreground="White" 
-             Height="47" 
-             VerticalAlignment="Bottom" 
-             Margin="20,0,10,0"
-             FontSize="36" 
-             FlowDirection="LeftToRight"/>
+
+        <TextBox 
+            Grid.Row="1"
+            Grid.ColumnSpan="3"
+            Foreground="White"
+            SelectionBrush="#FF10893E"
+            Background="Transparent"
+            BorderBrush="Transparent"
+            Style="{StaticResource NoFocusVisual}"
+            Height="47" 
+            VerticalAlignment="Bottom" 
+            Margin="20,0,10,0"
+            FontSize="36" 
+            FlowDirection="LeftToRight" 
+            Text="0"
+            Name="First_TextBox"
+            TextChanged="TextBox_TextChanged"/>
+
+
+        <ComboBox
+            SelectionChanged="ComboBox_SelectionChanged"
+            Name="First_ComboBox"
+            Grid.Row="2"
+            HorizontalAlignment="Left"
+            Margin="20,0,0,0"
+            ItemsSource="{Binding Items}"
+            IsEditable="False"
+            Grid.ColumnSpan="3"
+            Style="{StaticResource ComboBoxTransparent}"/>
+
+
+        <TextBox 
+            Grid.Row="3"
+            Grid.ColumnSpan="3"
+            Foreground="White"
+            SelectionBrush="#FF10893E"
+            Background="Transparent"
+            BorderBrush="Transparent"
+            Style="{StaticResource NoFocusVisual}"
+            Height="47" 
+            VerticalAlignment="Bottom" 
+            Margin="20,0,10,0"
+            FontSize="36" 
+            FlowDirection="LeftToRight" 
+            Text="0"
+            Name="Second_TextBox"
+            TextChanged="TextBox_TextChanged"/>
+
+        <ComboBox
+            Name="Second_ComboBox"
+            Grid.Row="4"
+            HorizontalAlignment="Left"
+            Margin="20,0,0,0"
+            ItemsSource="{Binding Items}"
+            IsEditable="False"
+            Grid.ColumnSpan="3"
+            Style="{StaticResource ComboBoxTransparent}"
+            SelectionChanged="ComboBox_SelectionChanged"/>
 
 
 
@@ -69,27 +108,51 @@
             Grid.Column="0" 
             Background="#FF3B3B3B"
             BorderBrush="Transparent"
-            Foreground="Transparent"/>
+            Foreground="Transparent"
+            Name="Seven_Click"
+            Focusable="False">
+            <TextBlock 
+             Text="7" 
+             Foreground="White"/>
+        </Button>
         <Button 
             Grid.Row="8" 
             Grid.Column="0" 
             Background="#FF3B3B3B"
             BorderBrush="Transparent"
-            Foreground="Transparent"/>
+            Foreground="Transparent"    
+            Name="Four_Click"
+            Focusable="False">
+            <TextBlock 
+                 Text="4" 
+                 Foreground="White"/>
+        </Button>
         <Button 
             Grid.Row="9" 
             Grid.Column="0" 
             Background="#FF3B3B3B"
             BorderBrush="Transparent"
-            Foreground="Transparent"/>
+            Foreground="Transparent"    
+            Name="One_Click"
+            Focusable="False">
+            <TextBlock 
+                 Text="1" 
+                 Foreground="White"/>
+        </Button>
 
 
-        <Button 
+        <Button  
             Grid.Row="6" 
             Grid.Column="1" 
             Background="#FF323232"
             BorderBrush="Transparent"
-            Foreground="Transparent"/>
+            Foreground="Transparent"
+            Name="CE_Click"
+            Focusable="False">
+            <TextBlock 
+                 Text="CE" 
+                 Foreground="White"/>
+        </Button>
 
 
         <Button 
@@ -97,25 +160,49 @@
             Grid.Column="1" 
             Background="#FF3B3B3B"
             BorderBrush="Transparent"
-            Foreground="Transparent"/>
+            Foreground="Transparent"    
+            Name="Eight_Click"
+            Focusable="False">
+            <TextBlock 
+                Text="8" 
+                Foreground="White"/>
+        </Button>
         <Button 
             Grid.Row="8" 
             Grid.Column="1" 
             Background="#FF3B3B3B"
             BorderBrush="Transparent"
-            Foreground="Transparent"/>
+            Foreground="Transparent"    
+            Name="Five_Click"
+            Focusable="False">
+            <TextBlock 
+                 Text="5" 
+                 Foreground="White"/>
+        </Button>
         <Button 
             Grid.Row="9" 
             Grid.Column="1" 
             Background="#FF3B3B3B"
             BorderBrush="Transparent"
-            Foreground="Transparent"/>
+            Foreground="Transparent"    
+            Name="Two_Click"
+            Focusable="False">
+            <TextBlock 
+                 Text="2" 
+                 Foreground="White"/>
+        </Button>
         <Button 
             Grid.Row="10" 
             Grid.Column="1" 
             Background="#FF3B3B3B"
             BorderBrush="Transparent"
-            Foreground="Transparent"/>
+            Foreground="Transparent"    
+            Name="Zero_Click"
+            Focusable="False">
+            <TextBlock 
+                 Text="0" 
+                 Foreground="White"/>
+        </Button>
 
 
         <Button 
@@ -123,31 +210,64 @@
             Grid.Column="2" 
             Background="#FF323232"
             BorderBrush="Transparent"
-            Foreground="Transparent"/>
+            Foreground="Transparent"
+            Name="Backspace_Click"
+            Focusable="False">
+            <Path
+                Data="M395 96H230c-46.7 0-73.2 34.7-102 63.5s-72.1 74.7-72.1 74.7C51 239.8 48 247 48 255.1c0 8 3 15.3 7.9 21 0 0 34.3 37.6 72.1 75.5 37.8 37.8 56.7 64.5 102 64.5h165c38.5 0 69-32.5 69-71V165c0-38.5-30.5-69-69-69zm-17.7 212.7c6.2 6.2 6.2 16.4 0 22.6-6.2 6.2-16.4 6.2-22.6 0L302 278.6l-52.7 52.7c-6.2 6.2-16.3 6.4-22.6 0-6.4-6.4-6.7-15.9 0-22.6l52.7-52.7-52.7-52.7c-6-6-7.1-15.6 0-22.6 7.1-7.1 16.4-6.2 22.6 0l52.7 52.7 52.7-52.7c6.2-6.2 16.4-6.2 22.6 0 6.2 6.2 6.2 16.4 0 22.6L324.6 256l52.7 52.7z" 
+                Stretch="Fill" 
+                Height="12" 
+                Width="16" Fill="White"
+                />
+        </Button>
         <Button 
             Grid.Row="7" 
             Grid.Column="2" 
             Background="#FF3B3B3B"
             BorderBrush="Transparent"
-            Foreground="Transparent"/>
+            Foreground="Transparent"    
+            Name="Nine_Click"
+            Focusable="False">
+            <TextBlock 
+                 Text="9" 
+                 Foreground="White"/>
+        </Button>
         <Button 
             Grid.Row="8" 
             Grid.Column="2" 
             Background="#FF3B3B3B"
             BorderBrush="Transparent"
-            Foreground="Transparent"/>
+            Foreground="Transparent"    
+            Name="Six_Click"
+            Focusable="False">
+            <TextBlock 
+                 Text="6" 
+                 Foreground="White"/>
+        </Button>
         <Button 
             Grid.Row="9" 
             Grid.Column="2" 
             Background="#FF3B3B3B"
             BorderBrush="Transparent"
-            Foreground="Transparent"/>
+            Foreground="Transparent"    
+            Name="Three_Click"
+            Focusable="False">
+            <TextBlock 
+                 Text="3" 
+                 Foreground="White"/>
+        </Button>
         <Button 
             Grid.Row="10" 
             Grid.Column="2" 
             Background="#FF3B3B3B"
             BorderBrush="Transparent"
-            Foreground="Transparent"/>
+            Foreground="Transparent"    
+            Name="Comma_Click"
+            Focusable="False">
+            <TextBlock 
+                 Text="," 
+                 Foreground="White"/>
+        </Button>
 
 
 
