@@ -24,6 +24,8 @@ namespace WinCalculator
             Value = value;
             Name = name;
         }
+
+        // Что бы отображалось при выводе списка
         public override string ToString()
         {
             return Name;
@@ -34,11 +36,11 @@ namespace WinCalculator
     class CommonFunctions
     {
 
-        static public List<QueryElement> GetLengthListFromDB()
+        static public List<QueryElement> GetListFromDB(string Table)
         {
             List<QueryElement> QueryElements = new List<QueryElement>();
 
-            string queryString = "SELECT Value, Name FROM Length";
+            string queryString = $"SELECT Value, Name FROM {Table}";
 
             string fullPath = @"C:\Users\Lolban\Projects\WinCalculator\db.db";
             using (SQLiteConnection connection = new SQLiteConnection($"Data Source={fullPath}; Version=3;"))
@@ -142,5 +144,6 @@ namespace WinCalculator
             }
 
         }
+
     }
 }

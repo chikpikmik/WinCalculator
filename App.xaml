@@ -209,6 +209,7 @@
                                 <Setter 
                                         Property="FontWeight" 
                                         Value="Bold"/>
+                                
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>

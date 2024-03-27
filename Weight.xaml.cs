@@ -20,14 +20,75 @@ namespace WinCalculator
     /// </summary>
     public partial class Weight : Page
     {
+        public List<QueryElement> Items { get; set; }
+
         public Weight()
         {
             InitializeComponent();
+
+            this.Items = CommonFunctions.GetListFromDB("Weight");
+            DataContext = this;
+            First_ComboBox.SelectedIndex = 0;
+            Second_ComboBox.SelectedIndex = 1;
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (First_ComboBox.SelectedIndex < 0 || Second_ComboBox.SelectedIndex < 0)
+                return;
+
+
+            ComboBox ChangedComboBox = sender as ComboBox;
+            ComboBox UnchangedComboBox;
+            TextBox UnchangedTextBox;
+            TextBox ChangedTextBox;
+            if (ChangedComboBox == First_ComboBox)
+            {
+                UnchangedComboBox = Second_ComboBox;
+                UnchangedTextBox = Second_TextBox;
+                ChangedTextBox = First_TextBox;
+            }
+            else
+            {
+                UnchangedComboBox = First_ComboBox;
+                UnchangedTextBox = First_TextBox;
+                ChangedTextBox = Second_TextBox;
+            }
+            double A, B;
+            A = Items[ChangedComboBox.SelectedIndex].Value;
+            B = Items[UnchangedComboBox.SelectedIndex].Value;
+
+            CommonFunctions.ComboBox_SelectionChanged(
+                ChangedComboBox, UnchangedComboBox,
+                ChangedTextBox, UnchangedTextBox,
+                A, B);
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            CommonFunctions.TextBox_TextChanged(sender as TextBox);
+            TextBox ChangedTextBox = sender as TextBox;
+
+            if (ChangedTextBox.IsFocused)
+            {
+                double A, B;
+                TextBox UnchangedTextBox;
+                if (ChangedTextBox != First_TextBox)
+                {
+                    UnchangedTextBox = First_TextBox;
+                    A = Items[Second_ComboBox.SelectedIndex].Value;
+                    B = Items[First_ComboBox.SelectedIndex].Value;
+                }
+                else
+                {
+                    UnchangedTextBox = Second_TextBox;
+                    A = Items[First_ComboBox.SelectedIndex].Value;
+                    B = Items[Second_ComboBox.SelectedIndex].Value;
+                }
+
+                CommonFunctions.TextBox_TextChanged(ChangedTextBox, UnchangedTextBox, A, B);
+            }
         }
+
+
     }
 }

@@ -26,9 +26,7 @@ namespace WinCalculator
         {
             InitializeComponent();
 
-
-
-            this.Items = CommonFunctions.GetLengthListFromDB();
+            this.Items = CommonFunctions.GetListFromDB("Length");
             DataContext = this;
             First_ComboBox.SelectedIndex = 0;
             Second_ComboBox.SelectedIndex = 1;
@@ -91,7 +89,6 @@ namespace WinCalculator
                 CommonFunctions.TextBox_TextChanged(ChangedTextBox, UnchangedTextBox, A,B);
             }
         }
-        
 
     }
 }

@@ -43,7 +43,7 @@
             HorizontalAlignment="Left" FontWeight="Bold"/>
 
 
-        <TextBox 
+        <TextBox
             Grid.Row="1"
             Grid.ColumnSpan="3"
             Foreground="White"
