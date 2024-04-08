@@ -30,6 +30,15 @@ namespace WinCalculator
             DataContext = this;
             First_ComboBox.SelectedIndex = 0;
             Second_ComboBox.SelectedIndex = 1;
+
+            foreach (var el in Everything.Children)
+            {
+                if (el is Button button && button.Content != null)
+                {
+                    button.Click += Button_click;
+                }
+            }
+
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -89,6 +98,73 @@ namespace WinCalculator
             }
         }
 
+        private void gotfocustextbox(object sender, RoutedEventArgs e)
+        {
+            TextBox textBox = (TextBox)sender;
+            textBox.Dispatcher.BeginInvoke(new Action(() => textBox.SelectAll()));
+        }
 
+        private void Button_click(object sender, RoutedEventArgs e)
+        {
+            Button b = (Button)sender;
+
+            string content = b.Content.ToString();
+            string name = b.Name;
+
+            var Calculator_TextBox = First_TextBox.IsFocused ? First_TextBox : Second_TextBox;
+
+            string selectedtext = Calculator_TextBox.SelectedText;
+            int selectionStart = Calculator_TextBox.SelectionStart;
+            int selectionLength = Calculator_TextBox.SelectionLength;
+
+            int oldpos = Calculator_TextBox.SelectionStart;
+            string oldstr = Calculator_TextBox.Text;
+
+            if (content == "=")
+            {
+                double ComputedExpression = CommonFunctions.ComputeExpression(Calculator_TextBox.Text);
+                if (double.IsInfinity(ComputedExpression))
+                {
+                    Calculator_TextBox.Text = "∞";
+                }
+                else if (!ComputedExpression.Equals(double.NaN))
+                {
+                    Calculator_TextBox.Text = ComputedExpression.ToString();
+                }
+            }
+            else if (name == "Backspace")
+            {
+
+
+                if (oldstr.Length == 1)
+                    Calculator_TextBox.Text = "0";
+                else if (!string.IsNullOrEmpty(selectedtext))
+                {
+                    Calculator_TextBox.Text = Calculator_TextBox.Text.Remove(selectionStart, selectionLength);
+                    Calculator_TextBox.SelectionStart = selectionStart;
+                }
+                else
+                {
+                    Calculator_TextBox.Text = oldstr.Remove(oldpos - 1, 1);
+                    Calculator_TextBox.SelectionStart = oldpos - 1;
+                }
+            }
+            else if (content == "C")
+                Calculator_TextBox.Text = "0";
+
+            else if (!string.IsNullOrEmpty(selectedtext))
+            {
+                Calculator_TextBox.Text = Calculator_TextBox.Text.Remove(selectionStart, selectionLength).Insert(selectionStart, content);
+                Calculator_TextBox.SelectionStart = selectionStart;
+            }
+
+            else
+            {
+                Calculator_TextBox.Text = oldstr.Insert(oldpos, content); ;
+                Calculator_TextBox.SelectionStart = oldpos + 1;
+            }
+
+
+        }
     }
 }

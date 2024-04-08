@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WinCalculator"
         mc:Ignorable="d"
-        Title="Калькулятор" 
+        Title="Зарплата" 
         MinHeight="500" MinWidth="300" 
         Height="520" Width="320"
         Background="#FF202020" 

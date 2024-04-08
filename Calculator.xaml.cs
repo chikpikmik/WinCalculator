@@ -20,9 +20,19 @@ namespace WinCalculator
     /// </summary>
     public partial class Calculator : Page
     {
+        bool FirstFocus=true;
         public Calculator()
         {
             InitializeComponent();
+
+            foreach (var el in Everything.Children) 
+            {
+                if (el is Button button && button.Content!=null)
+                {
+                    button.Click += Button_click;
+                }
+            }
+
         }
 
 
@@ -31,20 +41,73 @@ namespace WinCalculator
             CommonFunctions.TextBox_TextChanged(sender as TextBox);
         }
 
-        private void Equals_Click(object sender, RoutedEventArgs e)
+        private void Button_click(object sender, RoutedEventArgs e)
         {
-            double ComputedExpression = CommonFunctions.ComputeExpression(Calculator_TextBox.Text);
-            if (double.IsInfinity(ComputedExpression))
+            Button b = (Button)sender;
+
+            string content = b.Content.ToString();
+            string name = b.Name;
+
+            string selectedtext = Calculator_TextBox.SelectedText;
+            int selectionStart = Calculator_TextBox.SelectionStart;
+            int selectionLength = Calculator_TextBox.SelectionLength;
+
+            int oldpos = Calculator_TextBox.SelectionStart;
+            string oldstr = Calculator_TextBox.Text;
+
+            if (content == "=")
             {
-                Calculator_TextBox.Text = "∞";
+                double ComputedExpression = CommonFunctions.ComputeExpression(Calculator_TextBox.Text);
+                if (double.IsInfinity(ComputedExpression))
+                {
+                    Calculator_TextBox.Text = "∞";
+                }
+                else if (!ComputedExpression.Equals(double.NaN))
+                {
+                    Calculator_TextBox.Text = ComputedExpression.ToString();
+                }
             }
-            else if (!ComputedExpression.Equals(double.NaN))
+            else if (name == "Backspace")
             {
-                Calculator_TextBox.Text = ComputedExpression.ToString();
+                
+
+                if (oldstr.Length == 1)
+                    Calculator_TextBox.Text = "0";
+                else if (!string.IsNullOrEmpty(selectedtext))
+                {
+                    Calculator_TextBox.Text = Calculator_TextBox.Text.Remove(selectionStart, selectionLength);
+                    Calculator_TextBox.SelectionStart = selectionStart;
+                }
+                else
+                {
+                    Calculator_TextBox.Text = oldstr.Remove(oldpos-1,1);
+                    Calculator_TextBox.SelectionStart = oldpos - 1;
+                }
             }
+            else if (content == "C")
+                Calculator_TextBox.Text = "0";
+
+            else if (!string.IsNullOrEmpty(selectedtext))
+            {
+                Calculator_TextBox.Text = Calculator_TextBox.Text.Remove(selectionStart, selectionLength).Insert(selectionStart, content);
+                Calculator_TextBox.SelectionStart = selectionStart;
+            }
+
+            else
+            {
+                Calculator_TextBox.Text = oldstr.Insert(oldpos, content); ;
+                Calculator_TextBox.SelectionStart = oldpos + 1;
+            }
+            
+            
  
         }
 
+        private void gotfocustextbox(object sender, RoutedEventArgs e)
+        {
+            TextBox textBox = (TextBox)sender;
+            textBox.Dispatcher.BeginInvoke(new Action(() => textBox.SelectAll()));
+        }
 
     }
 }
