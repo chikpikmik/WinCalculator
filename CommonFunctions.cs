@@ -5,12 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using NCalc.Domain;
-using System.Data.SQLite;
+using System.Data.OleDb;
 using NCalc;
 using System.Reflection;
 using System.IO;
 using System.Net.NetworkInformation;
 using System.Diagnostics.Eventing.Reader;
+using System.Windows;
 
 namespace WinCalculator
 {
@@ -42,18 +43,20 @@ namespace WinCalculator
 
             string queryString = $"SELECT Value, Name FROM {Table}";
 
-            string fullPath = @"C:\Users\Lolban\Projects\WinCalculator\db.db";
-            using (SQLiteConnection connection = new SQLiteConnection($"Data Source={fullPath}; Version=3;"))
+            string fullPath = @"..\..\db.mdb";
+            string connectionString = $"Provider=Microsoft.Jet.OLEDB.4.0;Data Source= {fullPath};";
+
+            using (OleDbConnection connection = new OleDbConnection(connectionString))
             {
                 connection.Open();
 
-                using (SQLiteCommand command = new SQLiteCommand(queryString, connection))
+                using (OleDbCommand command = new OleDbCommand(queryString, connection))
                 {
-                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    using (OleDbDataReader reader = command.ExecuteReader())
                     {
                         while (reader.Read())
                         {
-                            double value = reader.GetDouble(0);
+                            double value = Convert.ToDouble(reader.GetString(0));
                             string name = reader.GetString(1);
 
                             QueryElements.Add(new QueryElement(value, name));
@@ -71,7 +74,7 @@ namespace WinCalculator
             if (expression == "")
                 return 0;
 
-            Expression e = new Expression(expression.Replace(',','.').Replace("∞","(1/0)")
+            NCalc.Expression e = new NCalc.Expression(expression.Replace(',','.').Replace("∞","(1/0)")
                 .Replace("e", "(2.71828)").Replace("π", "(3.14159)"));
 
             if (e.HasErrors())
@@ -96,7 +99,9 @@ namespace WinCalculator
             c == '.' || c == ','));
             int newLength = ChangedTextBox.Text.Length;
 
-            
+            if (newLength == 0)
+                ChangedTextBox.Text = "0";
+
             if (oldLength > newLength)
             {
                 // Либо курсор за пределами обрезанной области, либо введенный символ не был отображен и курсор нужно сместить обратно
@@ -142,6 +147,75 @@ namespace WinCalculator
                 double result = ComputeExpression(SecondTextBox.Text) * A / B;
                 ChangedTextBox.Text = result.Equals(Double.NaN) ? "" : result.ToString();
             }
+
+        }
+
+
+        static public void Button_click(TextBox Calculator_TextBox, Button b)
+        {
+
+            string content = b.Content.ToString();
+            string name = b.Name;
+
+            string selectedtext = Calculator_TextBox.SelectedText;
+            int selectionStart = Calculator_TextBox.SelectionStart;
+            int selectionLength = Calculator_TextBox.SelectionLength;
+
+            int oldpos = Calculator_TextBox.SelectionStart;
+            string oldstr = Calculator_TextBox.Text;
+
+            if (content == "=")
+            {
+                double ComputedExpression = ComputeExpression(Calculator_TextBox.Text);
+                if (double.IsInfinity(ComputedExpression))
+                {
+                    Calculator_TextBox.Text = "∞";
+                }
+                else if (!ComputedExpression.Equals(double.NaN))
+                {
+                    Calculator_TextBox.Text = ComputedExpression.ToString();
+                }
+            }
+            else if (name == "Backspace")
+            {
+                if (oldstr.Length == 1)
+                    Calculator_TextBox.Text = "0";
+                else if (!string.IsNullOrEmpty(selectedtext))
+                {
+                    Calculator_TextBox.Text = Calculator_TextBox.Text.Remove(selectionStart, selectionLength);
+                    Calculator_TextBox.SelectionStart = selectionStart;
+                }
+                else
+                {
+                    Calculator_TextBox.Text = oldstr.Remove(oldpos - 1, 1);
+                    Calculator_TextBox.SelectionStart = oldpos - 1;
+                }
+            }
+            else if (content == "CE" || content == "C")
+                Calculator_TextBox.Text = "0";
+
+            else if (content == "1/x")
+                Calculator_TextBox.Text = $"1/({oldstr})";
+
+            else if (content == "+/-")
+            {
+                Calculator_TextBox.Text = oldstr[0] == '-' ? oldstr.Remove(0, 1) : oldstr.Insert(0, "-");
+                Calculator_TextBox.SelectionStart = oldpos + (Calculator_TextBox.Text.Length - oldstr.Length);
+            }
+
+            else if (!string.IsNullOrEmpty(selectedtext))
+            {
+                Calculator_TextBox.Text = Calculator_TextBox.Text.Remove(selectionStart, selectionLength).Insert(selectionStart, content);
+                Calculator_TextBox.SelectionStart = selectionStart + content.Length;
+            }
+
+            else
+            {
+                Calculator_TextBox.Text = oldstr.Insert(oldpos, content); ;
+                Calculator_TextBox.SelectionStart = oldpos + 1;
+            }
+
+
 
         }
 

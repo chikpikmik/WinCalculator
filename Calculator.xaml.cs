@@ -20,7 +20,6 @@ namespace WinCalculator
     /// </summary>
     public partial class Calculator : Page
     {
-        bool FirstFocus=true;
         public Calculator()
         {
             InitializeComponent();

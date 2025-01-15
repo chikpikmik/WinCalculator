@@ -100,17 +100,21 @@
              BorderBrush="Transparent"
              Foreground="Transparent"
                 Focusable="False"/>
-        <Button Grid.Row="5" 
+        <Button 
+            Content="1/x"
+            Grid.Row="5" 
              Grid.Column="0" 
              Background="#FF323232"
              BorderBrush="Transparent"
-             Foreground="Transparent"
+             Foreground="White"
                 Focusable="False"/>
-        <Button Grid.Row="4" 
+        <Button
+            Content="CE"
+            Grid.Row="4" 
              Grid.Column="1" 
              Background="#FF323232"
              BorderBrush="Transparent"
-             Foreground="Transparent"
+             Foreground="White"
                 Focusable="False"/>
         <Button 
             
@@ -149,11 +153,13 @@
                 Width="16" Fill="White"
                 />
         </Button>
-        <Button Grid.Row="5" 
+        <Button
+            Content="/"
+            Grid.Row="5" 
              Grid.Column="3" 
              Background="#FF323232"
              BorderBrush="Transparent"
-             Foreground="Transparent"
+             Foreground="White"
                 Focusable="False"/>
         <Button
             Content="*"
@@ -208,11 +214,13 @@
              Foreground="White"
             Content="1"
                Focusable="False"/>
-        <Button Grid.Row="9" 
+        <Button 
+            Content="+/-"
+            Grid.Row="9" 
              Grid.Column="0" 
              Background="#FF3B3B3B"
              BorderBrush="Transparent"
-             Foreground="Transparent"
+             Foreground="White"
                 Focusable="False"/>
         <Button Grid.Row="6" 
              Grid.Column="1" 
