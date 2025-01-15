@@ -45,6 +45,7 @@ namespace WinCalculator
 
             string fullPath = @"..\..\db.mdb";
             string connectionString = $"Provider=Microsoft.Jet.OLEDB.4.0;Data Source= {fullPath};";
+            //string connectionString = $"Provider = Microsoft.ACE.OLEDB.12.0;Data Source= {fullPath};";
 
             using (OleDbConnection connection = new OleDbConnection(connectionString))
             {

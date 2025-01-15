@@ -16,17 +16,17 @@ using System.Windows.Shapes;
 namespace WinCalculator
 {
     /// <summary>
-    /// Логика взаимодействия для Weight.xaml
+    /// Логика взаимодействия для Converter.xaml
     /// </summary>
-    public partial class Weight : Page
+    public partial class Converter : Page
     {
         public List<QueryElement> Items { get; set; }
-
-        public Weight()
+        
+        public Converter(string pageName)
         {
             InitializeComponent();
 
-            this.Items = CommonFunctions.GetListFromDB("Weight");
+            this.Items = CommonFunctions.GetListFromDB(pageName);
             DataContext = this;
             First_ComboBox.SelectedIndex = 0;
             Second_ComboBox.SelectedIndex = 1;
@@ -51,7 +51,7 @@ namespace WinCalculator
             ComboBox UnchangedComboBox;
             TextBox UnchangedTextBox;
             TextBox ChangedTextBox;
-            if (ChangedComboBox == First_ComboBox)
+            if (ChangedComboBox == First_ComboBox) 
             {
                 UnchangedComboBox = Second_ComboBox;
                 UnchangedTextBox = Second_TextBox;
@@ -68,20 +68,20 @@ namespace WinCalculator
             B = Items[UnchangedComboBox.SelectedIndex].Value;
 
             CommonFunctions.ComboBox_SelectionChanged(
-                ChangedComboBox, UnchangedComboBox,
-                ChangedTextBox, UnchangedTextBox,
-                A, B);
+                ChangedComboBox, UnchangedComboBox, 
+                ChangedTextBox, UnchangedTextBox, 
+                A,B);
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             TextBox ChangedTextBox = sender as TextBox;
-
+            
             if (ChangedTextBox.IsFocused)
             {
                 double A, B;
                 TextBox UnchangedTextBox;
-                if (ChangedTextBox != First_TextBox)
+                if (ChangedTextBox != First_TextBox) 
                 {
                     UnchangedTextBox = First_TextBox;
                     A = Items[Second_ComboBox.SelectedIndex].Value;
@@ -94,7 +94,7 @@ namespace WinCalculator
                     B = Items[Second_ComboBox.SelectedIndex].Value;
                 }
 
-                CommonFunctions.TextBox_TextChanged(ChangedTextBox, UnchangedTextBox, A, B);
+                CommonFunctions.TextBox_TextChanged(ChangedTextBox, UnchangedTextBox, A,B);
             }
         }
 
@@ -109,6 +109,8 @@ namespace WinCalculator
             Button b = (Button)sender;
             var Calculator_TextBox = First_TextBox.IsFocused ? First_TextBox : Second_TextBox;
             CommonFunctions.Button_click(Calculator_TextBox, b);
+
         }
+
     }
 }

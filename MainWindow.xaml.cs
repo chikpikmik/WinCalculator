@@ -91,19 +91,16 @@ namespace WinCalculator
 
         }
 
-        private void Weight_click(object sender, RoutedEventArgs e)
+        private void Converter_click(object sender, RoutedEventArgs e)
         {
-            MainFrame.Navigate(new Weight());
+            Button clickedButton = sender as Button;
+
+            MainFrame.Navigate(new Converter(clickedButton.Name));
             CloseMenu();
         }
         private void Calculator_click(object sender, RoutedEventArgs e)
         {
             MainFrame.Navigate(new Calculator());
-            CloseMenu();
-        }
-        private void Length_click(object sender, RoutedEventArgs e)
-        {
-            MainFrame.Navigate(new Length());
             CloseMenu();
         }
 

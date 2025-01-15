@@ -241,8 +241,9 @@
                     Margin="10,10,0,0" 
                     HorizontalAlignment="Left"/>
 
-                <Button 
-                    Click="Length_click"
+                <Button
+                    Name="Length"
+                    Click="Converter_click"
                     Height="29" 
                     Background="Transparent" 
                     BorderBrush="Transparent" 
@@ -282,9 +283,10 @@
                     </StackPanel>
                 </Button>
 
-                <Button 
-                    Click="Weight_click"
-                    Height="29" 
+                <Button
+                    Name="Weight"
+                    Click="Converter_click"
+                    Height="29"
                     Background="Transparent" 
                     BorderBrush="Transparent" 
                     Foreground="White" 

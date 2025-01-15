@@ -1,4 +1,4 @@
-﻿<Page x:Class="WinCalculator.Length"
+﻿<Page x:Class="WinCalculator.Converter"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:WinCalculator"
       mc:Ignorable="d" 
       d:DesignHeight="404" d:DesignWidth="290.789"
-      Title="Length">
+      Title="Converter">
 
     <Grid Name="Everything">
         <Grid.RowDefinitions>
